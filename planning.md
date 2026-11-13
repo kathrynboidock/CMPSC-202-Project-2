@@ -3,6 +3,62 @@
 ## Problem Formulation
 
 ## Baseline Solution
+To establish a functional baseline, we can implement a naive brute-force strategy. This approach recursively generates all possible subsequences from the sequence of book energies E and checks each one to verify if its energy values strictly increase from left to right. The algorithm then tracks and returns the longest valid stack it finds.
+
+```
+def generateAllsequences(E):
+    # brute force strategy to return all sequences
+    input: Sequence E
+    output: List of all possible sequences
+
+    if length of E == 0:
+        return [ [] ]
+
+    first_element = E[0]
+    remaining_elements = E[1 to end]
+    
+    # Recursive call to get subsets of the rest of the array
+    sub_problem_solutions = generateAllsequences(remaining_elements)
+    
+    all_combined = empty list
+    
+    for each sub_solution in sub_problem_solutions:
+        # Exclude the first element
+        Add sub_solution to all_combined
+        # Include the first element
+        Add [first_element] + sub_solution to all_combined
+        
+    return all_combined
+
+def baselineEldritchBookStacking(E):
+    input: Sequence of book energies E of length n
+    output: Maximum stack height and selected books
+
+    max_height = 0
+    best_stack = empty list
+
+    # Generate all possible sequences
+    
+    all_subsets = generateAllsequences(E)
+
+    for each subset in all_subsets:
+        is_valid = true
+        
+        # Verify if the subset increases from left to right
+        for i from 0 to length(subset) - 2:
+            if subset[i] >= subset[i + 1]:
+                is_valid = false
+                break
+
+        # Track the longest valid stack found
+        if is_valid == true:
+            if length of subset > max_height:
+                max_height = length of subset
+                best_stack = subset
+
+    return max_height, best_stack
+
+```
 
 ## Algorithmic Strategy
 
