@@ -5,9 +5,10 @@
 The objective of the Eldritch Book Stacking problem is to efficienly stack a series of tomes on a lectern. We are told that the tomes must be stacked in order of low to high Eldritch Energy that is radiating off each tome, while also keeping the tomes in their original left to right order. Our goal is to design an algorithm that identifies the tallest possible stack of tomes while following the constraints of radiating Eldritch Energy and relitive order of the tomes.
 
 ## Baseline Solution
+
 To establish a functional baseline, we can implement a naive brute-force strategy. This approach recursively generates all possible subsequences from the sequence of book energies E and checks each one to verify if its energy values strictly increase from left to right. The algorithm then tracks and returns the longest valid stack it finds.
 
-```
+```text
 def generateAllsequences(E):
     # brute force strategy to return all sequences
     input: Sequence E
@@ -59,7 +60,6 @@ def baselineEldritchBookStacking(E):
                 best_stack = subset
 
     return max_height, best_stack
-
 ```
 
 ## Algorithmic Strategy
