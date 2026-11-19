@@ -25,4 +25,8 @@ def eldritchBookStacking(E):
     stack.reverse()
     return max_height, stack
 
+print(eldritchBookStacking([2, 5, 3, 8, 6]))
+print(eldritchBookStacking([]))
+print(eldritchBookStacking([9, 7, 5, 3, 1]))
+print(eldritchBookStacking([4, 4, 4, 4]))
 print(eldritchBookStacking([-5, -2, -8, 0, -1]))
