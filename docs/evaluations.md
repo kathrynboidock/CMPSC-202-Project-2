@@ -3,7 +3,29 @@
 ## Overview
 
 ## Benchmark Results
-TODO
+`benchmark.py` generates an array of random integer file sizes from 1 through 100 (`L = 100`) for each configured number of files. The benchmark varies the number of files from 10 to 50,000 and runs both algorithms five times on the same generated array at each applicable input size. Execution time is measured with `perf_counter()` only for the ordering algorithm calls; input generation and CSV writing occur outside the timed section. These measurements represent algorithm runtime rather than the time required to process actual files.
+
+The baseline is restricted to 10 files because its factorial runtime makes larger inputs impractical. Since 10 is the smallest benchmark input size, the recorded results contain one baseline size. The baseline and dynamic programming algorithm are evaluated using the same 10-file array.
+
+The table below reports the arithmetic mean of the five recorded runtimes in [`empirical_results.csv`](../assets/empirical_results.csv):
+
+| Number of files (n) | Baseline mean time (seconds) | Dynamic mean time (seconds) |
+| ------------------: | ---------------------------: | ------------------------: |
+|                  10 |                  1.838299767 |               0.000003142 |
+|                  50 |                           -- |               0.000003142 |
+|                 100 |                           -- |               0.000003142 |
+|                 500 |                           -- |               0.000003142 |
+|               1,000 |                           -- |               0.000003142 |
+|               5,000 |                           -- |               0.000003142 |
+|              10,000 |                           -- |               0.000003142 |
+|              20,000 |                           -- |               0.000003142 |
+|              30,000 |                           -- |               0.000003142 |
+|              40,000 |                           -- |               0.000003142 |
+|              50,000 |                           -- |               0.000003142 |
+
+A dash indicates that the baseline was not measured at that input size.
+
+![Benchmark results](../assets/benchmark_results.png)
 
 ## Test Suite
 
