@@ -132,10 +132,6 @@ For the dynamic-programming approach, the nested loops make $\sum_{i=0}^{n-1} i 
 
 ## Empirical Evaluation
 
-### Implementation
-
-
-
 ### Results
 
 `benchmark.py` generates an array of random integer file sizes from 1 through 100 (`L = 100`) for each configured number of files. The benchmark varies the number of files from 10 to 50,000 and runs both algorithms five times on the same generated array at each applicable input size. Execution time is measured with `perf_counter()` only for the ordering algorithm calls; input generation and CSV writing occur outside the timed section. These measurements represent algorithm runtime rather than the time required to process actual files.
@@ -164,6 +160,4 @@ A dash indicates that the baseline was not measured at that input size.
 
 
 
-
-
-**The Real-World Impact:** 
+**The Real-World Impact:** The impracticallity that leads the baseline to only be able to do up to 10 books could potentially occur to an algoritim in the real-world as well. If a certain dataset you need to work with requires larger numbers to get accurate information, an algorithm with a restriced input size can significantly impact your ability to compute with your dataset.
