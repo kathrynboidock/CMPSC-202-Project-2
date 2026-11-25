@@ -4,6 +4,7 @@ import os
 import random
 from time import perf_counter
 
+import matplotlib.pyplot as plt
 import pandas as pd
 from methods import baselineEldritchBookStacking, eldritchBookStacking
 
@@ -85,6 +86,51 @@ def run_benchmarks():
     return df_all
 
 
+def create_visualization(benchmark_results, output_file="results.png"):
+    """Plot average runtimes from the DataFrame returned by run_benchmarks."""
+    required_columns = {"Books", "Time(seconds)", "Algorithm"}
+    if not required_columns.issubset(benchmark_results.columns):
+        raise ValueError(
+            "benchmark_results must contain Books, Time(seconds), and Algorithm columns."
+        )
+    if benchmark_results.empty:
+        raise ValueError("benchmark_results must not be empty.")
+
+    averages = benchmark_results.groupby(
+        ["Algorithm", "Books"], as_index=False
+    )["Time(seconds)"].mean()
+
+    figure, axes = plt.subplots(1, 2, figsize=(13, 5))
+    for algorithm, results in averages.groupby("Algorithm"):
+        results = results.sort_values("Books")
+        for axis in axes:
+            axis.plot(
+                results["Books"],
+                results["Time(seconds)"],
+                marker="o",
+                label=algorithm,
+            )
+
+    axes[0].set_title("Runtime Comparison: Linear Scale")
+    axes[0].set_xlabel("Number of Books (N)")
+    axes[0].set_ylabel("Average Runtime (seconds)")
+    axes[0].grid(True, linestyle="--", alpha=0.6)
+    axes[0].legend()
+
+    axes[1].set_yscale("log")
+    axes[1].set_title("Runtime Comparison: Logarithmic Scale")
+    axes[1].set_xlabel("Number of Books (N)")
+    axes[1].set_ylabel("Average Runtime (seconds)")
+    axes[1].grid(True, linestyle="--", alpha=0.6)
+    axes[1].legend()
+
+    figure.suptitle("Baseline vs. Dynamic Programming Book-Stack Algorithms")
+    figure.tight_layout()
+    figure.savefig(output_file, dpi=300)
+    plt.close(figure)
+
+
 if __name__ == "__main__":
     """Run the benchmarks when this script is executed directly."""
-    run_benchmarks()
+    results = run_benchmarks()
+    create_visualization(results, output_file="benchmark_results.png")
