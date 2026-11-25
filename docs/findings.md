@@ -124,7 +124,11 @@ def eldritchBookStacking(E):
 
 ## Complexity Analysis
 
+Let $n$ be the number of books.
 
+For the brute-force baseline, the algorithm generates and checks all $2^n$ subsets. Checking each subset takes at most $O(n)$ time, so the running time is $\Theta(n2^n)$. Storing all subsets requires $\Theta(n2^n)$ space; generating and checking them one at a time requires $O(n)$ auxiliary space, not counting the result.
+
+For the dynamic-programming approach, the nested loops make $\sum_{i=0}^{n-1} i = n(n-1)/2$ comparisons, so the running time is $\Theta(n^2)$. Initialization, finding the maximum, and reconstructing the stack each take $O(n)$ time and do not change this bound. The `dp` and `previous` arrays, along with the reconstructed stack, require $\Theta(n)$ space.
 
 ## Empirical Evaluation
 
